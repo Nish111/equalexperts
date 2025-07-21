@@ -24,6 +24,7 @@ docker run -p 8080:8080 python-gists-api
 
 ```bash
 pytest tests/
+curl http://localhost:8080/octocat
 ```
 
 ### API Usage
