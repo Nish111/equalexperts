@@ -4,13 +4,15 @@
 FROM python:3.11-slim
 
 # Create a non-root user
-RUN useradd -m appuser
+RUN adduser --disabled-password --gecos '' appuser
+USER appuser
 
 WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --no-cache-dir uvicorn
 
 # Copy app code
 COPY . .
@@ -24,4 +26,4 @@ USER appuser
 # Expose port (optional but good practice)
 EXPOSE 8080
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["python3", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
