@@ -30,5 +30,6 @@ jobs:
         pytest
       
     - name: Build the Docker image
+      working-directory: python-gists-api
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
